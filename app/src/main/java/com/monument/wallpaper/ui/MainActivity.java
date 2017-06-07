@@ -6,19 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.monument.wallpaper.R;
+import com.monument.wallpaper.adapter.MainAdapter;
+import com.monument.wallpaper.model.UrlModel;
+import com.monument.wallpaper.presenter.LoadDataPresenter;
+import com.monument.wallpaper.presenter.LoadDataPresenterImpl;
+import com.monument.wallpaper.view.MainView;
+import com.ovwvwvo.jkit.weight.ToastMaster;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -27,29 +29,28 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
+    private MainAdapter adapter;
+    private LoadDataPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        presenter = new LoadDataPresenterImpl();
+        initView();
+        presenter.loadData();
+    }
 
+    private void initView() {
         setSupportActionBar(toolbar);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
+        adapter = new MainAdapter(this);
+        recyclerView.setAdapter(adapter);
 
-        FirebaseApp.initializeApp(this);
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReferenceFromUrl("gs://wallpaper-895e5.appspot.com/");
-        storageReference.getPath();
-        storageReference.getBucket();
-        storageReference.getName();
-        StorageReference imgref = storageReference.child("2.png");
-        imgref.getPath();
-        imgref.getBucket();
-        imgref.getName();
-        Log.i("dd", "");
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,9 +64,28 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
 
+    @Override
+    public void showProgress() {
+        swipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void showToast(String msg) {
+        ToastMaster.showToastMsg(msg);
+    }
+
+    @Override
+    public void LoadDataSuccess(UrlModel model) {
+        swipeRefreshLayout.setRefreshing(false);
+        adapter.setModels(model.getUrl());
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.loadData();
+    }
 }
