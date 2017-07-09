@@ -3,6 +3,9 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
+    useLibrary 'org.apache.http.legacy'
+
     defaultConfig {
         applicationId "com.monument.wallpaper"
         minSdkVersion 15
@@ -32,4 +35,6 @@ dependencies {
 
     compile 'com.ovwvwvo:jkit:0.1.6'
     compile 'com.ovwvwvo:common:0.1.6'
+
+    compile 'cn.bmob.android:bmob-sdk:3.5.5'
 }
