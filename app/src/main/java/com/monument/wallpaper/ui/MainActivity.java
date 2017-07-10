@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import com.monument.wallpaper.R;
 import com.monument.wallpaper.adapter.MainAdapter;
 import com.monument.wallpaper.model.UrlModel;
-import com.monument.wallpaper.presenter.LoadDataPresenter;
 import com.monument.wallpaper.presenter.LoadDataPresenterImpl;
 import com.monument.wallpaper.view.MainView;
 import com.ovwvwvo.jkit.weight.ToastMaster;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     RecyclerView recyclerView;
 
     private MainAdapter adapter;
-    private LoadDataPresenter presenter;
+    private LoadDataPresenterImpl presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,12 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
         ButterKnife.bind(this);
         presenter = new LoadDataPresenterImpl();
         initView();
+
         presenter.loadData();
+
+        presenter.writeDatabase();
+
+        presenter.readDatabase();
     }
 
     private void initView() {

@@ -2,6 +2,7 @@ package com.monument.wallpaper;
 
 import android.app.Application;
 
+import com.google.firebase.FirebaseApp;
 import com.ovwvwvo.jkit.log.LogUtil;
 
 /**
@@ -15,5 +16,7 @@ public class MainApp extends Application {
         super.onCreate();
 
         LogUtil.setEnable(true);
+
+        FirebaseApp.initializeApp(this);
     }
 }
