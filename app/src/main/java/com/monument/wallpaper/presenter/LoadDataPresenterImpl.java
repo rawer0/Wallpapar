@@ -8,8 +8,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.monument.wallpaper.model.UrlModel;
-
-import java.util.List;
+import com.monument.wallpaper.view.MainView;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -21,10 +20,17 @@ import cn.bmob.v3.listener.QueryListener;
 
 public class LoadDataPresenterImpl implements LoadDataPresenter {
 
-    private static final String TAG = "DATA_CHANGE";
+    private static final String TAG = "LoadDataPresenterImpl";
+
+    private MainView mainView;
+
+    public LoadDataPresenterImpl(MainView mainView) {
+        this.mainView = mainView;
+    }
 
     @Override
     public void loadData() {
+<<<<<<< HEAD
         BmobQuery<UrlModel> bmobQuery = new BmobQuery<UrlModel>();
         bmobQuery.getObject("6b6c11c537", new QueryListener<UrlModel>() {
             @Override
@@ -35,37 +41,38 @@ public class LoadDataPresenterImpl implements LoadDataPresenter {
                 }
             }
         });
+=======
+        mainView.showProgress();
+        readDatabase();
+>>>>>>> add loadData
     }
-
 
     public void writeDatabase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, 慧慧!");
+        DatabaseReference myRef = database.getReference("pics");
+        UrlModel urlModel = new UrlModel();
+        urlModel.addUrl("1asdf");
+        urlModel.addUrl("2asdf");
+        urlModel.addUrl("3asdf");
+        myRef.setValue(urlModel);
     }
 
     public void readDatabase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.addValueEventListener(new ValueEventListener() {
+        DatabaseReference myRef = database.getReference("pics");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
+                UrlModel model = dataSnapshot.getValue(UrlModel.class);
+                mainView.LoadDataSuccess(model);
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed to read value
+                mainView.showToast(error.getMessage());
+                mainView.hideProgress();
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-    }
-
-    private List<UrlModel> generateData() {
-        return null;
     }
 }

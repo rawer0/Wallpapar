@@ -1,5 +1,6 @@
 package com.monument.wallpaper.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.monument.wallpaper.adapter.MainAdapter;
 import com.monument.wallpaper.model.UrlModel;
 import com.monument.wallpaper.presenter.LoadDataPresenterImpl;
 import com.monument.wallpaper.view.MainView;
+import com.monument.wallpaper.widget.DividerGridItemDecoration;
 import com.ovwvwvo.jkit.weight.ToastMaster;
 
 import butterknife.BindView;
@@ -36,20 +38,18 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        presenter = new LoadDataPresenterImpl();
+        presenter = new LoadDataPresenterImpl(this);
         initView();
 
         presenter.loadData();
-
-        presenter.writeDatabase();
-
-        presenter.readDatabase();
     }
 
     private void initView() {
         setSupportActionBar(toolbar);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addItemDecoration(new DividerGridItemDecoration(this,
+            getResources().getDimensionPixelSize(R.dimen.space_small_2), Color.WHITE));
         adapter = new MainAdapter(this);
         recyclerView.setAdapter(adapter);
 
@@ -71,10 +71,14 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void showProgress() {
         swipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void hideProgress() {
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

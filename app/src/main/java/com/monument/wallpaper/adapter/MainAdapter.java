@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.monument.wallpaper.R;
+import com.ovwvwvo.jkit.log.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MViewHolder> {
 
     @Override
     public void onBindViewHolder(MViewHolder holder, int position) {
-        Glide.with(activity).load(models.get(position)).into(holder.imageView);
+        LogUtil.i("onBindViewHolder", models.get(position));
+        Glide.with(activity)
+            .load(models.get(position) + "-rectangle")
+            .thumbnail(0.6f)
+            .into(holder.imageView);
     }
 
     @Override

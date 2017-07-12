@@ -10,6 +10,8 @@ public interface MainView {
 
     void showProgress();
 
+    void hideProgress();
+
     void showToast(String msg);
 
     void LoadDataSuccess(UrlModel model);
