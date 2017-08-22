@@ -1,4 +1,4 @@
-package com.monument.wallpaper.presenter;
+package com.ovwvwvo.wallpaper.presenter;
 
 import android.util.Log;
 
@@ -7,12 +7,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.monument.wallpaper.model.UrlModel;
-import com.monument.wallpaper.view.MainView;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.QueryListener;
+import com.ovwvwvo.wallpaper.model.UrlModel;
+import com.ovwvwvo.wallpaper.view.MainView;
 
 /**
  * Copyright ©2017 by rawer
@@ -30,21 +26,8 @@ public class LoadDataPresenterImpl implements LoadDataPresenter {
 
     @Override
     public void loadData() {
-<<<<<<< HEAD
-        BmobQuery<UrlModel> bmobQuery = new BmobQuery<UrlModel>();
-        bmobQuery.getObject("6b6c11c537", new QueryListener<UrlModel>() {
-            @Override
-            public void done(UrlModel object, BmobException e) {
-                if (e == null) {
-
-                } else {
-                }
-            }
-        });
-=======
         mainView.showProgress();
         readDatabase();
->>>>>>> add loadData
     }
 
     public void writeDatabase() {
@@ -57,7 +40,7 @@ public class LoadDataPresenterImpl implements LoadDataPresenter {
         myRef.setValue(urlModel);
     }
 
-    public void readDatabase() {
+    private void readDatabase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("pics");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {

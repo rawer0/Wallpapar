@@ -1,14 +1,12 @@
-package com.monument.wallpaper.model;
+package com.ovwvwvo.wallpaper.model;
 
-import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Copyright ©2017 by Teambition
+ * Copyright ©2017 by rawer
  */
-@IgnoreExtraProperties
 public class UrlModel {
     private List<String> url;
 

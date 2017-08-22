@@ -1,4 +1,4 @@
-package com.monument.wallpaper.ui;
+package com.ovwvwvo.wallpaper.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,8 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.monument.wallpaper.R;
-import com.monument.wallpaper.adapter.DetailAdapter;
+import com.ovwvwvo.wallpaper.R;
+import com.ovwvwvo.wallpaper.adapter.DetailAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

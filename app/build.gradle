@@ -1,14 +1,11 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
-    useLibrary 'org.apache.http.legacy'
-
     defaultConfig {
-        applicationId "com.monument.wallpaper"
+        applicationId "com.ovwvwvo.wallpaper"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -16,35 +13,36 @@ android {
 
         multiDexEnabled true
     }
+
+    useLibrary 'org.apache.http.legacy'
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {}
+    }
+
+    productFlavors {
+        bmob {}
+        firebase {
+            apply plugin: 'com.google.gms.google-services'
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    firebaseCompile 'com.google.firebase:firebase-core:11.0.2'
+    firebaseCompile 'com.google.firebase:firebase-database:11.0.2'
+    bmobCompile 'cn.bmob.android:bmob-sdk:3.5.5'
 
     compile 'com.android.support:design:25.3.1'
-
-    compile 'com.google.firebase:firebase-core:11.0.2'
-    compile 'com.google.firebase:firebase-database:11.0.2'
-
-    compile 'cn.bmob.android:bmob-sdk:3.5.5'
-
     compile 'com.github.bumptech.glide:glide:4.0.0-RC0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
-
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-
     compile 'com.ovwvwvo:jkit:0.1.6'
-<<<<<<< HEAD
     compile 'com.ovwvwvo:common:0.1.6'
 }
-=======
-//    compile 'com.ovwvwvo:common:0.1.6'
-}
->>>>>>> add loadData

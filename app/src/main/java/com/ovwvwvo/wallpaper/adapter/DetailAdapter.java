@@ -1,10 +1,10 @@
-package com.monument.wallpaper.adapter;
+package com.ovwvwvo.wallpaper.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.monument.wallpaper.ui.DetailFragment;
+import com.ovwvwvo.wallpaper.ui.DetailFragment;
 
 /**
  * Copyright ©2017 by rawer

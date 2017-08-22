@@ -1,4 +1,4 @@
-package com.monument.wallpaper.adapter;
+package com.ovwvwvo.wallpaper.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.monument.wallpaper.R;
-import com.monument.wallpaper.ui.DetailActivity;
+import com.ovwvwvo.wallpaper.R;
+import com.ovwvwvo.wallpaper.ui.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;

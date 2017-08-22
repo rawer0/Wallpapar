@@ -6,7 +6,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context="com.monument.wallpaper.ui.DetailActivity">
+                tools:context="com.ovwvwvo.wallpaper.ui.DetailActivity">
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/section_label"

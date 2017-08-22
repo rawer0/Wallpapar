@@ -1,4 +1,4 @@
-package com.monument.wallpaper;
+package com.ovwvwvo.wallpaper;
 
 import android.app.Application;
 
@@ -17,6 +17,7 @@ public class MainApp extends Application {
 
         LogUtil.setEnable(true);
 
-        FirebaseApp.initializeApp(this);
+        if ("firebase".equals(BuildConfig.FLAVOR))
+            FirebaseApp.initializeApp(this, null);
     }
 }

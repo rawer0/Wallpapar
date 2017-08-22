@@ -1,4 +1,4 @@
-package com.monument.wallpaper.presenter;
+package com.ovwvwvo.wallpaper.presenter;
 
 /**
  * Copyright ©2017 by rawer

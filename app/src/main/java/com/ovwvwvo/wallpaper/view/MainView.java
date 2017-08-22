@@ -1,6 +1,6 @@
-package com.monument.wallpaper.view;
+package com.ovwvwvo.wallpaper.view;
 
-import com.monument.wallpaper.model.UrlModel;
+import com.ovwvwvo.wallpaper.model.UrlModel;
 
 /**
  * Copyright ©2017 by rawer
