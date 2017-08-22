@@ -1,6 +1,7 @@
 package com.monument.wallpaper.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +10,14 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.monument.wallpaper.R;
-import com.ovwvwvo.jkit.log.LogUtil;
+import com.monument.wallpaper.ui.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Copyright ©2017 by rawer
@@ -38,10 +40,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MViewHolder> {
 
     @Override
     public void onBindViewHolder(MViewHolder holder, int position) {
-        LogUtil.i("onBindViewHolder", models.get(position));
         Glide.with(activity)
             .load(models.get(position) + "-rectangle")
-            .thumbnail(0.6f)
+            .thumbnail(0.4f)
             .into(holder.imageView);
     }
 
@@ -57,6 +58,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MViewHolder> {
         MViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        @OnClick(R.id.iv)
+        void click() {
+            activity.startActivity(new Intent(activity, DetailActivity.class));
         }
     }
 
