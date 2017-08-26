@@ -30,6 +30,10 @@ android {
             apply plugin: 'com.google.gms.google-services'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 dependencies {
