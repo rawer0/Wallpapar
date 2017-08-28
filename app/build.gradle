@@ -50,6 +50,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     compile 'com.ovwvwvo:jkit:0.1.7'
-    compile 'com.ovwvwvo:common:0.1.6'
+    compile 'com.ovwvwvo:common:0.1.7'
     compile 'com.githang:status-bar-compat:0.5.3'
 }
