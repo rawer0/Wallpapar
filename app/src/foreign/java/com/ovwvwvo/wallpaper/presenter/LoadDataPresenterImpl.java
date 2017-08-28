@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ovwvwvo.wallpaper.model.UrlModel;
+import com.ovwvwvo.wallpaper.model.UrlsResponse;
 import com.ovwvwvo.wallpaper.view.MainView;
 
 /**
@@ -28,26 +29,30 @@ public class LoadDataPresenterImpl implements LoadDataPresenter {
     public void loadData() {
         mainView.showProgress();
         readDatabase();
+//        writeDatabase();
     }
 
     public void writeDatabase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("pics");
+        DatabaseReference myRef = database.getReference();
+        UrlsResponse urlModels = new UrlsResponse();
         UrlModel urlModel = new UrlModel();
-        urlModel.addUrl("1asdf");
-        urlModel.addUrl("2asdf");
-        urlModel.addUrl("3asdf");
-        myRef.setValue(urlModel);
+        urlModel.setId(123);
+        urlModel.setUrl("www.baidu.com");
+        urlModel.setDesc("baidu");
+        urlModels.addUrlModels(urlModel);
+        myRef.setValue(urlModels);
+        Log.i(TAG, "数据写入完成");
     }
 
     private void readDatabase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("pics");
+        DatabaseReference myRef = database.getReference();
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                UrlModel model = dataSnapshot.getValue(UrlModel.class);
-                mainView.LoadDataSuccess(model);
+                UrlsResponse model = dataSnapshot.getValue(UrlsResponse.class);
+                mainView.LoadDataSuccess(model.getUrlModels());
             }
 
             @Override

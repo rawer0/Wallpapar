@@ -3,7 +3,6 @@ package com.ovwvwvo.wallpaper.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.ovwvwvo.wallpaper.R;
@@ -16,7 +15,7 @@ import butterknife.ButterKnife;
  * Copyright ©2017 by rawer
  */
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;

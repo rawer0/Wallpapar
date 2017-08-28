@@ -25,28 +25,31 @@ android {
     }
 
     productFlavors {
-        bmob {}
-        firebase {
+        inland {}
+        foreign {
             apply plugin: 'com.google.gms.google-services'
         }
     }
 
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    firebaseCompile 'com.google.firebase:firebase-core:11.0.2'
-    firebaseCompile 'com.google.firebase:firebase-database:11.0.2'
-    bmobCompile 'cn.bmob.android:bmob-sdk:3.5.5'
+    foreignCompile 'com.google.firebase:firebase-core:11.0.2'
+    foreignCompile 'com.google.firebase:firebase-database:11.0.2'
+    inlandCompile 'cn.leancloud.android:avoscloud-sdk:v4.4.4'
 
     compile 'com.android.support:design:25.3.1'
     compile 'com.github.bumptech.glide:glide:4.0.0-RC0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    compile 'com.ovwvwvo:jkit:0.1.6'
+    compile 'com.ovwvwvo:jkit:0.1.7'
     compile 'com.ovwvwvo:common:0.1.6'
+    compile 'com.githang:status-bar-compat:0.5.3'
 }

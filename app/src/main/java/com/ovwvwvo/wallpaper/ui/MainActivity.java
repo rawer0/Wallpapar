@@ -18,6 +18,8 @@ import com.ovwvwvo.wallpaper.presenter.LoadDataPresenterImpl;
 import com.ovwvwvo.wallpaper.view.MainView;
 import com.ovwvwvo.wallpaper.widget.DividerGridItemDecoration;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -87,9 +89,9 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     }
 
     @Override
-    public void LoadDataSuccess(UrlModel model) {
+    public void LoadDataSuccess(List<UrlModel> models) {
         swipeRefreshLayout.setRefreshing(false);
-        adapter.setModels(model.getUrl());
+        adapter.setModels(models);
     }
 
     @Override
