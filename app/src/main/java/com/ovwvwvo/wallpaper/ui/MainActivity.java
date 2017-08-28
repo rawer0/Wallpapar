@@ -10,8 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ovwvwvo.jkit.log.LogUtil;
 import com.ovwvwvo.jkit.weight.ToastMaster;
 import com.ovwvwvo.wallpaper.R;
+import com.ovwvwvo.wallpaper.adapter.AutoLoadMoreAdapter;
 import com.ovwvwvo.wallpaper.adapter.MainAdapter;
 import com.ovwvwvo.wallpaper.model.UrlModel;
 import com.ovwvwvo.wallpaper.presenter.LoadDataPresenterImpl;
@@ -23,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainView, SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends AppCompatActivity implements MainView, SwipeRefreshLayout.OnRefreshListener, AutoLoadMoreAdapter.OnLoadMoreListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
         presenter = new LoadDataPresenterImpl(this);
         initView();
 
-        presenter.loadData();
+        presenter.loadData(0);
     }
 
     private void initView() {
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
         recyclerView.addItemDecoration(new DividerGridItemDecoration(this,
             getResources().getDimensionPixelSize(R.dimen.space_small_2), Color.WHITE));
         adapter = new MainAdapter(this);
+        adapter.setLoadMoreListener(this);
         recyclerView.setAdapter(adapter);
 
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -91,11 +94,26 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     @Override
     public void LoadDataSuccess(List<UrlModel> models) {
         swipeRefreshLayout.setRefreshing(false);
-        adapter.setModels(models);
+        if (models == null) {
+            ToastMaster.showToastMsg("data is null");
+        } else {
+            if (models.size() == 0)
+                adapter.setMoreDataAvailable(false);
+            if (adapter.isLoading)
+                adapter.addModels(models);
+            else
+                adapter.setModels(models);
+        }
     }
 
     @Override
     public void onRefresh() {
-        presenter.loadData();
+        adapter.setMoreDataAvailable(true);
+        presenter.loadData(0);
+    }
+
+    @Override
+    public void onLoadMore() {
+        presenter.loadData(adapter.getLastId());
     }
 }

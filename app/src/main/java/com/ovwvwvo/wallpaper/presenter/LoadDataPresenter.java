@@ -6,5 +6,5 @@ package com.ovwvwvo.wallpaper.presenter;
 
 public interface LoadDataPresenter {
 
-    void loadData();
+    void loadData(long page);
 }
