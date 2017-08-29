@@ -14,9 +14,15 @@ public class UrlModel extends AVObject {
     private String url;
     private String desc;
 
-    public UrlModel(){
+    public UrlModel() {
         super();
     }
+
+    public UrlModel(Parcel in) {
+        super(in);
+    }
+
+    public static final Creator CREATOR = AVObjectCreator.instance;
 
     public long getId() {
         return getLong("id");

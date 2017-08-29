@@ -3,15 +3,15 @@
           package="com.ovwvwvo.wallpaper">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
-    <!-- LeanCloud 基础模块（必须加入以下声明）START
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- LeanCloud 基础模块（必须加入以下声明）START-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    LeanCloud 基础模块（必须加入以下声明）END -->
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:name="com.ovwvwvo.wallpaper.MainApp"
@@ -32,8 +32,7 @@
         </activity>
         <activity
             android:name="com.ovwvwvo.wallpaper.ui.DetailActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"/>
     </application>
 
 </manifest>

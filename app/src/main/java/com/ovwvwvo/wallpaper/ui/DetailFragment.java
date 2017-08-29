@@ -1,29 +1,38 @@
 package com.ovwvwvo.wallpaper.ui;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.ovwvwvo.wallpaper.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Copyright ©2017 by rawer
  */
 
 public class DetailFragment extends Fragment {
-    private static final String ARG_SECTION_NUMBER = "section_number";
+    @BindView(R.id.imageView)
+    SubsamplingScaleImageView imageView;
 
-    public DetailFragment() {
-    }
+    private static final String URL = "url";
 
-    public static DetailFragment newInstance(int sectionNumber) {
+    public static DetailFragment newInstance(String url) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        args.putString(URL, url);
         fragment.setArguments(args);
         return fragment;
     }
@@ -32,9 +41,24 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+        ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        String url = getArguments().getString(URL);
+        assert url != null;
+        Glide.with(this)
+            .asBitmap()
+            .load(url)
+            .into(new SimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                    imageView.setImage(ImageSource.bitmap(resource));
+                }
+            });
     }
 
     @Override

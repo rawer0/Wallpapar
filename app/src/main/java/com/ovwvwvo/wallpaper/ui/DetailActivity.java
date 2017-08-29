@@ -7,6 +7,9 @@ import android.support.v7.widget.Toolbar;
 
 import com.ovwvwvo.wallpaper.R;
 import com.ovwvwvo.wallpaper.adapter.DetailAdapter;
+import com.ovwvwvo.wallpaper.model.UrlModel;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +34,10 @@ public class DetailActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        detailAdapter = new DetailAdapter(getSupportFragmentManager());
+//        getSupportActionBar().hide();
+
+        ArrayList<UrlModel> urls = getIntent().getParcelableArrayListExtra("urls");
+        detailAdapter = new DetailAdapter(getSupportFragmentManager(), urls);
         mViewPager.setAdapter(detailAdapter);
     }
 }
