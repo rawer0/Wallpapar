@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.ovwvwvo.jkit.log.LogUtil;
 import com.ovwvwvo.jkit.weight.ToastMaster;
 import com.ovwvwvo.wallpaper.R;
 import com.ovwvwvo.wallpaper.adapter.AutoLoadMoreAdapter;
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

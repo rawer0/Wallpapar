@@ -16,6 +16,12 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="AppTheme.NoActionBar.FullScreen.ActionTextColor">
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="android:itemBackground">#000000</item>
+    </style>
+
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
