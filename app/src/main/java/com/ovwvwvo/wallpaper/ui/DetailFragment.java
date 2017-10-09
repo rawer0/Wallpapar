@@ -15,8 +15,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.ovwvwvo.wallpaper.R;
 
 import java.io.IOException;
@@ -30,10 +29,10 @@ import butterknife.ButterKnife;
 
 public class DetailFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.imageView)
-    SubsamplingScaleImageView imageView;
+    PhotoView imageView;
 
     private static final String URL = "url";
-    private String url;
+    private Bitmap bitmap;
 
     public static DetailFragment newInstance(String url) {
         DetailFragment fragment = new DetailFragment();
@@ -56,15 +55,14 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        url = getArguments().getString(URL);
-        assert url != null;
+        String url = getArguments().getString(URL);
         Glide.with(this)
             .asBitmap()
             .load(url)
             .into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-                    imageView.setImage(ImageSource.bitmap(resource));
+                    imageView.setImageBitmap(bitmap = resource);
                 }
             });
     }
@@ -78,20 +76,12 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_set_wallpaper) {
-            Glide.with(this)
-                .asBitmap()
-                .load(url)
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-                        WallpaperManager wallpaperManager = WallpaperManager.getInstance(getContext());
-                        try {
-                            wallpaperManager.setBitmap(resource);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+            WallpaperManager wallpaperManager = WallpaperManager.getInstance(getContext());
+            try {
+                wallpaperManager.setBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return super.onOptionsItemSelected(item);
     }

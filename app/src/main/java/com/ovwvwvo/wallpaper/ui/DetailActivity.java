@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.WindowManager;
 
 import com.ovwvwvo.wallpaper.R;
 import com.ovwvwvo.wallpaper.adapter.DetailAdapter;
@@ -30,15 +31,16 @@ public class DetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setTheme(android.R.style.Theme_Wallpaper_NoTitleBar_Fullscreen);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_detail);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
         ArrayList<UrlModel> urls = getIntent().getParcelableArrayListExtra("urls");
+        int position = getIntent().getIntExtra("position", 0);
         detailAdapter = new DetailAdapter(getSupportFragmentManager(), urls);
         mViewPager.setAdapter(detailAdapter);
+        mViewPager.setCurrentItem(position);
     }
 
     public void toggleStatusBar() {
@@ -48,5 +50,12 @@ public class DetailActivity extends BaseActivity {
         } else {
             getSupportActionBar().hide();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
     }
 }

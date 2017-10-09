@@ -1,7 +1,9 @@
 package com.ovwvwvo.wallpaper.ui;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.ovwvwvo.jkit.weight.ToastMaster;
 import com.ovwvwvo.wallpaper.R;
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initStatusBar();
         ButterKnife.bind(this);
         presenter = new LoadDataPresenterImpl(this);
         initView();
@@ -58,6 +65,23 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
         recyclerView.setAdapter(adapter);
 
         swipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+    public void initStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+            View rectView = new View(this);
+            LinearLayout.LayoutParams params
+                = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
+            rectView.setLayoutParams(params);
+            rectView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+            ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
+            decorView.addView(rectView);
+            ViewGroup rootView = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
+            rootView.setClipToPadding(true);
+        }
     }
 
     @Override

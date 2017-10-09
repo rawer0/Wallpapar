@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name="com.ovwvwvo.wallpaper.ui.DetailActivity"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen.ActionTextColor"/>
+            android:theme="@style/AppTheme.NoActionBar.FullScreen.WhiteMenuText"/>
     </application>
 
 </manifest>
