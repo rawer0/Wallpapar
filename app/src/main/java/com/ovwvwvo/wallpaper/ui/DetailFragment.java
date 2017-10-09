@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.ovwvwvo.jkit.weight.ToastMaster;
 import com.ovwvwvo.wallpaper.R;
 
 import java.io.IOException;
@@ -79,8 +80,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             WallpaperManager wallpaperManager = WallpaperManager.getInstance(getContext());
             try {
                 wallpaperManager.setBitmap(bitmap);
+                ToastMaster.showToastMsg(R.string.set_wallpaper_successed);
             } catch (IOException e) {
                 e.printStackTrace();
+                ToastMaster.showToastMsg(R.string.set_wallpaper_failed);
             }
         }
         return super.onOptionsItemSelected(item);
