@@ -40,6 +40,23 @@ public class DetailActivity extends BaseActivity {
         int position = getIntent().getIntExtra("position", 0);
         detailAdapter = new DetailAdapter(getSupportFragmentManager(), urls);
         mViewPager.setAdapter(detailAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                if (!showStatusBar)
+                    getSupportActionBar().show();
+            }
+        });
         mViewPager.setCurrentItem(position);
     }
 
