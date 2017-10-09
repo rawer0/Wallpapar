@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.ovwvwvo.wallpaper.R;
@@ -26,7 +27,6 @@ public class DetailActivity extends BaseActivity {
     @BindView(R.id.container)
     ViewPager mViewPager;
 
-    private DetailAdapter detailAdapter;
     private boolean showStatusBar = true;
 
     @Override
@@ -38,8 +38,19 @@ public class DetailActivity extends BaseActivity {
 
         ArrayList<UrlModel> urls = getIntent().getParcelableArrayListExtra("urls");
         int position = getIntent().getIntExtra("position", 0);
-        detailAdapter = new DetailAdapter(getSupportFragmentManager(), urls);
+        DetailAdapter detailAdapter = new DetailAdapter(getSupportFragmentManager(), urls);
         mViewPager.setAdapter(detailAdapter);
+        addListener();
+        mViewPager.setCurrentItem(position);
+    }
+
+    private void addListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -57,7 +68,6 @@ public class DetailActivity extends BaseActivity {
                     getSupportActionBar().show();
             }
         });
-        mViewPager.setCurrentItem(position);
     }
 
     public void toggleStatusBar() {
