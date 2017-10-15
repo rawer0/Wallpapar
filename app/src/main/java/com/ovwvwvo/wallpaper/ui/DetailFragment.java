@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -50,6 +51,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, rootView);
         imageView.setOnClickListener(this);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -92,7 +94,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     }
 
     private void gotoHome() {
-        Intent home=new Intent(Intent.ACTION_MAIN);
+        Intent home = new Intent(Intent.ACTION_MAIN);
         home.addCategory(Intent.CATEGORY_HOME);
         startActivity(home);
     }
