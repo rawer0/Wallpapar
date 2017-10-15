@@ -1,6 +1,7 @@
 package com.ovwvwvo.wallpaper.ui;
 
 import android.app.WallpaperManager;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -81,12 +82,19 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             try {
                 wallpaperManager.setBitmap(bitmap);
                 ToastMaster.showToastMsg(R.string.set_wallpaper_successed);
+                gotoHome();
             } catch (IOException e) {
                 e.printStackTrace();
                 ToastMaster.showToastMsg(R.string.set_wallpaper_failed);
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void gotoHome() {
+        Intent home=new Intent(Intent.ACTION_MAIN);
+        home.addCategory(Intent.CATEGORY_HOME);
+        startActivity(home);
     }
 
 
