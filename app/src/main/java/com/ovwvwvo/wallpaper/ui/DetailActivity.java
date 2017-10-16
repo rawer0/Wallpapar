@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.ovwvwvo.wallpaper.R;
@@ -31,6 +32,7 @@ public class DetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_detail);
         ButterKnife.bind(this);
@@ -42,6 +44,18 @@ public class DetailActivity extends BaseActivity {
         mViewPager.setAdapter(detailAdapter);
         addListener();
         mViewPager.setCurrentItem(position);
+
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+//            ViewPager.LayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+//            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+//                //将侧边栏顶部延伸至status bar
+//                mDrawerLayout.setFitsSystemWindows(true);
+//                //将主页面顶部延伸至status bar;虽默认为false,但经测试,DrawerLayout需显示设置
+//                mDrawerLayout.setClipToPadding(false);
+//            }
+//        }
     }
 
     private void addListener() {

@@ -1,22 +1,16 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="AppTheme.Fullscreen">
+
     </style>
 
-    <style name="AppTheme.NoActionBar.FullScreen">
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar.FullScreen.WhiteMenuText">
+    <style name="AppTheme.WhiteMenuText" parent="AppTheme.Fullscreen">
         <item name="android:actionMenuTextColor">@android:color/white</item>
         <item name="android:itemBackground">#000000</item>
     </style>
