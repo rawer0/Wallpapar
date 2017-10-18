@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: 'util.gradle'
 
 android {
     compileSdkVersion 25
@@ -8,16 +9,16 @@ android {
         applicationId "com.ovwvwvo.wallpaper"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode appVersionCode
+        versionName appVersionName
 
         multiDexEnabled true
     }
 
     dexOptions {
-        preDexLibraries = false
+        preDexLibraries = true
     }
-    
+
     useLibrary 'org.apache.http.legacy'
 
     signingConfigs {
@@ -65,6 +66,16 @@ android {
         exclude 'META-INF/rxjava.properties'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def fileName = output.outputFile.name;
+            if (fileName != null && fileName.endsWith('.apk')) {
+                fileName = fileName.replace("app", getRootProject().name + "${variant.versionName}-${variant.versionCode}")
+                output.outputFile = new File(output.outputFile.parent, fileName)
+            }
+        }
     }
 }
 
