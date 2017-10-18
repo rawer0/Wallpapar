@@ -24,6 +24,9 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+### 忽略警告
+-ignorewarning
+
 #Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
@@ -32,7 +35,7 @@
 }
 
 # for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 # Butterknife
 -keep class butterknife.*

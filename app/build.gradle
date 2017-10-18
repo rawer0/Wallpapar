@@ -16,12 +16,38 @@ android {
 
     useLibrary 'org.apache.http.legacy'
 
+    signingConfigs {
+        release {
+            storeFile file('./keystore/keystore.jks')
+            storePassword "$System.env.STORE_PASSWORD"
+            keyAlias "$System.env.KEY_ALIAS"
+            keyPassword System.getProperty("KEY_PASSWORD")
+        }
+        debug {
+            storeFile file('./keystore/debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
-        debug {}
+        debug {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds true
+        abortOnError false
     }
 
     productFlavors {
@@ -43,7 +69,6 @@ dependencies {
     foreignCompile 'com.google.firebase:firebase-core:11.0.2'
     foreignCompile 'com.google.firebase:firebase-database:11.0.2'
     inlandCompile 'cn.leancloud.android:avoscloud-sdk:v4.4.4'
-
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.github.bumptech.glide:glide:4.0.0'
