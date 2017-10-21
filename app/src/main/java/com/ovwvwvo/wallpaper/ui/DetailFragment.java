@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -25,14 +28,23 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.ovwvwvo.wallpaper.R.id.imageView;
 
 /**
  * Copyright ©2017 by rawer
  */
 
 public class DetailFragment extends Fragment implements View.OnClickListener {
-    @BindView(R.id.imageView)
-    PhotoView imageView;
+    @BindView(imageView)
+    PhotoView src_iv;
+    @BindView(R.id.bottom_sheet)
+    RelativeLayout bottomSheet_layout;
+    @BindView(R.id.desc)
+    AppCompatTextView desc_tv;
+
+    private BottomSheetBehavior behavior;
 
     private static final String URL = "url";
     private Bitmap bitmap;
@@ -50,8 +62,12 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, rootView);
-        imageView.setOnClickListener(this);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        src_iv.setOnClickListener(this);
+        src_iv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        behavior = BottomSheetBehavior.from(bottomSheet_layout);
+        behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -66,7 +82,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             .into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-                    imageView.setImageBitmap(bitmap = resource);
+                    src_iv.setImageBitmap(bitmap = resource);
                 }
             });
     }
@@ -91,6 +107,15 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.move)
+    void onMoveClick() {
+        if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {//bottomSheet_layout 展开
+            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        } else {//bottomSheet_layout 折叠
+            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
     }
 
     private void gotoHome() {

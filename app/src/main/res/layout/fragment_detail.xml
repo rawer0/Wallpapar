@@ -1,12 +1,46 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-                tools:context="com.ovwvwvo.wallpaper.ui.DetailActivity">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.ovwvwvo.wallpaper.ui.DetailActivity">
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="100dp"
+        app:elevation="@dimen/card_elevation"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/move"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="64dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_move"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/move"
+            android:background="@color/transparentHalf"
+            android:lineSpacingExtra="2dp"
+            android:minHeight="64dp"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textColor="#ddd"
+            android:textSize="@dimen/text_size_small_2"
+            tools:text="介绍"/>
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
