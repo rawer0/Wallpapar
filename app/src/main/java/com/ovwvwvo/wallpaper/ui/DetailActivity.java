@@ -3,8 +3,6 @@ package com.ovwvwvo.wallpaper.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -23,12 +21,8 @@ import butterknife.ButterKnife;
 
 public class DetailActivity extends BaseActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.container)
     ViewPager mViewPager;
-
-    private boolean showStatusBar = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,13 +30,11 @@ public class DetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_detail);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
 
         ArrayList<UrlModel> urls = getIntent().getParcelableArrayListExtra("urls");
         int position = getIntent().getIntExtra("position", 0);
         DetailAdapter detailAdapter = new DetailAdapter(getSupportFragmentManager(), urls);
         mViewPager.setAdapter(detailAdapter);
-        addListener();
         mViewPager.setCurrentItem(position);
 
 
@@ -56,41 +48,6 @@ public class DetailActivity extends BaseActivity {
 //                mDrawerLayout.setClipToPadding(false);
 //            }
 //        }
-    }
-
-    private void addListener() {
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                if (!showStatusBar)
-                    getSupportActionBar().show();
-            }
-        });
-    }
-
-    public void toggleStatusBar() {
-        showStatusBar = !showStatusBar;
-        if (showStatusBar) {
-            getSupportActionBar().show();
-        } else {
-            getSupportActionBar().hide();
-        }
     }
 
     @Override

@@ -36,7 +36,7 @@ import static com.ovwvwvo.wallpaper.R.id.imageView;
  * Copyright ©2017 by rawer
  */
 
-public class DetailFragment extends Fragment implements View.OnClickListener {
+public class DetailFragment extends Fragment {
     @BindView(imageView)
     PhotoView src_iv;
     @BindView(R.id.bottom_sheet)
@@ -62,7 +62,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, rootView);
-        src_iv.setOnClickListener(this);
         src_iv.setScaleType(ImageView.ScaleType.FIT_XY);
 
         behavior = BottomSheetBehavior.from(bottomSheet_layout);
@@ -122,13 +121,5 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         Intent home = new Intent(Intent.ACTION_MAIN);
         home.addCategory(Intent.CATEGORY_HOME);
         startActivity(home);
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        if (getActivity() instanceof DetailActivity) {
-            ((DetailActivity) getActivity()).toggleStatusBar();
-        }
     }
 }
