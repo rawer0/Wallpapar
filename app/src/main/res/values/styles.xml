@@ -6,14 +6,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.Fullscreen">
-
-    </style>
-
-    <style name="AppTheme.WhiteMenuText" parent="AppTheme.Fullscreen">
-        <item name="android:actionMenuTextColor">@android:color/white</item>
-        <item name="android:itemBackground">#000000</item>
-    </style>
+    <style name="AppTheme.Fullscreen"/>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 

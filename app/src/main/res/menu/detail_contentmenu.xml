@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.ovwvwvo.wallpaper.ui.DetailActivity">
+    <item
+        android:id="@+id/menu_set_wallpaper"
+        android:title="@string/menu_item_wallpaper"/>
+    <item
+        android:id="@+id/meun_set_lockScreen"
+        android:title="@string/menu_item_lockscreen"/>
+    <item
+        android:id="@+id/meun_info"
+        android:title="@string/menu_item_download"/>
+    <item
+        android:id="@+id/meun_download"
+        android:title="@string/menu_item_download"/>
+    <item
+        android:id="@+id/menu_view_original_image"
+        android:title="@string/menu_item_view_original_image"/>
+    <item
+        android:id="@+id/menu_share"
+        android:title="@string/menu_item_share"/>
+</menu>
