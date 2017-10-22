@@ -100,10 +100,8 @@ public class DetailFragment extends Fragment {
         if (item.getItemId() == R.id.menu_set_wallpaper) {//设置壁纸
             presenter.setWallPaper(getContext(), bitmap);
         } else if (item.getItemId() == R.id.meun_set_lockScreen) {//设置锁屏
-        } else if (item.getItemId() == R.id.meun_download) {//下载高清图片
-        } else if (item.getItemId() == R.id.meun_info) {//图片信息
-        } else if (item.getItemId() == R.id.menu_view_original_image) {//查看原图
-        } else if (item.getItemId() == R.id.meun_info) {//分享
+        } else if (item.getItemId() == R.id.meun_download) {//下载
+        } else if (item.getItemId() == R.id.menu_share) {//分享图片
         }
         return super.onContextItemSelected(item);
     }

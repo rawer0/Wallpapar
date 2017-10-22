@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Wallpaper</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="menu_item_wallpaper">Set as Wallpaper</string>
+    <string name="menu_item_lockscreen">Set as Lock screen</string>
+    <string name="menu_item_download">Download original image</string>
+    <string name="menu_item_share">Share</string>
+
+    <string name="set_wallpaper_failed">Set Wallpaper failed</string>
+    <string name="set_wallpaper_successed">Set Wallpaper successfully</string>
 </resources>
