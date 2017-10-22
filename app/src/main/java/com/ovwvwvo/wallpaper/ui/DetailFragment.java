@@ -2,14 +2,13 @@ package com.ovwvwvo.wallpaper.ui;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
-import android.view.ContextMenu;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,8 +18,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.ovwvwvo.jkit.utils.FileUtil;
+import com.ovwvwvo.jkit.weight.ToastMaster;
 import com.ovwvwvo.wallpaper.R;
 import com.ovwvwvo.wallpaper.presenter.DetailPresenter;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +34,7 @@ import butterknife.OnLongClick;
  * Copyright ©2017 by rawer
  */
 
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements DetailDialog.onItemClickListener {
     @BindView(R.id.src)
     PhotoView src_iv;
     @BindView(R.id.bottom_sheet)
@@ -40,6 +43,7 @@ public class DetailFragment extends Fragment {
     AppCompatTextView desc_tv;
 
     private BottomSheetBehavior behavior;
+    private DetailDialog detailDialog;
 
     private static final String URL = "url";
     private Bitmap bitmap;
@@ -60,7 +64,6 @@ public class DetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, rootView);
         src_iv.setScaleType(ImageView.ScaleType.FIT_XY);
-        registerForContextMenu(src_iv);
 
         behavior = BottomSheetBehavior.from(bottomSheet_layout);
         behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -88,27 +91,13 @@ public class DetailFragment extends Fragment {
             });
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.detail_contentmenu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_set_wallpaper) {//设置壁纸
-            presenter.setWallPaper(getContext(), bitmap);
-        } else if (item.getItemId() == R.id.meun_set_lockScreen) {//设置锁屏
-        } else if (item.getItemId() == R.id.meun_download) {//下载
-        } else if (item.getItemId() == R.id.menu_share) {//分享图片
-        }
-        return super.onContextItemSelected(item);
-    }
-
     @OnLongClick(R.id.src)
     boolean onLongClick() {
-        src_iv.showContextMenu();
+        if (detailDialog == null) {
+            detailDialog = new DetailDialog();
+            detailDialog.setListener(this);
+        }
+        detailDialog.show(getFragmentManager(), "dialog");
         return false;
     }
 
@@ -119,5 +108,30 @@ public class DetailFragment extends Fragment {
         } else {//bottomSheet_layout 折叠
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
+    }
+
+    @Override
+    public void onSetWallpaperClick() {
+        presenter.setWallPaper(getContext(), bitmap);
+    }
+
+    @Override
+    public void onSetLockScreenClick() {
+        ToastMaster.showToastMsg(R.string.menu_item_lockscreen);
+    }
+
+    @Override
+    public void onDownLoadClick() {
+        String path = Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_PICTURES).getPath() + File.separator
+            + System.currentTimeMillis() + ".png";
+        FileUtil.saveFile(bitmap.toString(), path);
+        Log.i("###", path);
+        ToastMaster.showToastMsg(R.string.menu_item_download);
+    }
+
+    @Override
+    public void onShareClick() {
+        ToastMaster.showToastMsg(R.string.menu_item_share);
     }
 }
