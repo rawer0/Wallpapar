@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.ovwvwvo.jkit.utils.FileUtil;
 import com.ovwvwvo.jkit.weight.ToastMaster;
 import com.ovwvwvo.wallpaper.R;
+import com.ovwvwvo.wallpaper.model.UrlModel;
 import com.ovwvwvo.wallpaper.presenter.DetailPresenter;
 
 import java.io.File;
@@ -45,17 +47,26 @@ public class DetailFragment extends Fragment implements DetailDialog.onItemClick
     private BottomSheetBehavior behavior;
     private DetailDialog detailDialog;
 
-    private static final String URL = "url";
+    private static final String MODEL = "model";
+
+    private UrlModel model;
     private Bitmap bitmap;
 
     private DetailPresenter presenter;
 
-    public static DetailFragment newInstance(String url) {
+    public static DetailFragment newInstance(UrlModel model) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
-        args.putString(URL, url);
+        args.putParcelable(MODEL, model);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        model = getArguments().getParcelable(MODEL);
+        presenter = new DetailPresenter();
     }
 
     @Override
@@ -65,24 +76,21 @@ public class DetailFragment extends Fragment implements DetailDialog.onItemClick
         ButterKnife.bind(this, rootView);
         src_iv.setScaleType(ImageView.ScaleType.FIT_XY);
 
-        behavior = BottomSheetBehavior.from(bottomSheet_layout);
-        behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        if (TextUtils.isEmpty(model.getDesc())) {
+            bottomSheet_layout.setVisibility(View.GONE);
+        } else {
+            behavior = BottomSheetBehavior.from(bottomSheet_layout);
+            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
         return rootView;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        presenter = new DetailPresenter();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        String url = getArguments().getString(URL);
         Glide.with(this)
             .asBitmap()
-            .load(url)
+            .load(model.getUrl())
             .into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {

@@ -25,7 +25,7 @@ public class DetailAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return DetailFragment.newInstance(urlModels.get(position).getUrl());
+        return DetailFragment.newInstance(urlModels.get(position));
     }
 
     @Override
