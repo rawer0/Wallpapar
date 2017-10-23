@@ -25,7 +25,7 @@
 #-renamesourcefileattribute SourceFile
 
 ### 忽略警告
--ignorewarning
+#-ignorewarning
 
 #Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
