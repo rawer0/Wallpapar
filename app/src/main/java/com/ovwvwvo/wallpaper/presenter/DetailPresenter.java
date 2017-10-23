@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.text.TextUtils;
 
 import com.ovwvwvo.jkit.rx.EmptyObserver;
 import com.ovwvwvo.jkit.weight.ToastMaster;
@@ -13,6 +16,7 @@ import com.ovwvwvo.wallpaper.logic.DetailOperLogic;
 import com.ovwvwvo.wallpaper.view.DetailView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -58,7 +62,10 @@ public class DetailPresenter {
         logic.requestPermission(activity)
             .doOnNext(granted -> {
                 if (granted) {
-                    downloadPic(bitmap);
+                    String path = downloadPic(bitmap);
+                    if (!TextUtils.isEmpty(path)) {
+                        refreshPic(activity, path);
+                    }
                     ToastMaster.showToastMsg(R.string.download_successed);
                 } else {
                     ToastMaster.showToastMsg(R.string.permissions);
@@ -68,7 +75,7 @@ public class DetailPresenter {
             .subscribe(new EmptyObserver<>());
     }
 
-    private void downloadPic(Bitmap bitmap) {
+    private String downloadPic(Bitmap bitmap) {
         String path = Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_PICTURES).getPath() + File.separator
             + System.currentTimeMillis() + ".png";
@@ -81,6 +88,19 @@ public class DetailPresenter {
                 out.close();
             }
         } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return path;
+    }
+
+    private void refreshPic(Context context, String path) {
+        try {
+            // 把文件插入到系统图库
+            MediaStore.Images.Media.insertImage(context.getContentResolver(), path, "", null);
+            // 通知图库更新
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse(path)));
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
