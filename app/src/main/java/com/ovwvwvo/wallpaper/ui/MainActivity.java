@@ -57,6 +57,13 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     private void initView() {
         setSupportActionBar(toolbar);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                boolean bo = MainAdapter.ItemType.LOAD_MORE.ordinal() == adapter.getItemViewType(position);
+                return bo ? 2 : 1;
+            }
+        });
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(new DividerGridItemDecoration(this,
             getResources().getDimensionPixelSize(R.dimen.space_small_2), Color.WHITE));
