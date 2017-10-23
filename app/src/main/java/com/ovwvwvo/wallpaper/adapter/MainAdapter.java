@@ -1,8 +1,6 @@
 package com.ovwvwvo.wallpaper.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +26,7 @@ import butterknife.OnClick;
 
 public class MainAdapter extends AutoLoadMoreAdapter<RecyclerView.ViewHolder> {
 
-    private List<UrlModel> models = new ArrayList<>();
+    private ArrayList<UrlModel> models = new ArrayList<>();
     private Activity activity;
 
     public enum ItemType {
@@ -107,9 +105,7 @@ public class MainAdapter extends AutoLoadMoreAdapter<RecyclerView.ViewHolder> {
 
         @OnClick(R.id.iv)
         void click() {
-            Intent intent = new Intent(activity, DetailActivity.class);
-            intent.putParcelableArrayListExtra("urls", (ArrayList<? extends Parcelable>) models);
-            activity.startActivity(intent);
+            activity.startActivity(DetailActivity.createIntent(activity, models, getAdapterPosition()));
         }
     }
 
