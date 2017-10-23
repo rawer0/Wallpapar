@@ -127,8 +127,10 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
         if (models == null) {
             ToastMaster.showToastMsg("data is null");
         } else {
-            if (models.size() == 0)
+            if (models.size() == 0) {
                 adapter.setMoreDataAvailable(false);
+                ToastMaster.showToastMsg(R.string.no_more);
+            }
             if (adapter.isLoading)
                 adapter.addModels(models);
             else

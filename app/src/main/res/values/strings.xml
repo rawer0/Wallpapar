@@ -11,5 +11,6 @@
     <string name="set_wallpaper_failed">设置壁纸失败</string>
 
     <string name="load_more">加载更多...</string>
+    <string name="no_more">没有更多数据了^-^</string>
 
 </resources>
