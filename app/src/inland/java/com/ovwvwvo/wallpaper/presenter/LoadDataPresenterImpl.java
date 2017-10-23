@@ -4,6 +4,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
+import com.ovwvwvo.jkit.weight.ToastMaster;
 import com.ovwvwvo.wallpaper.model.UrlModel;
 import com.ovwvwvo.wallpaper.view.MainView;
 
@@ -45,7 +46,7 @@ public class LoadDataPresenterImpl implements LoadDataPresenter {
                 if (e == null) {
                     mainView.LoadDataSuccess(list);
                 } else {
-                    mainView.showToast(e.getMessage());
+                    ToastMaster.showToastMsg(e.getMessage());
                     mainView.hideProgress();
                 }
             }

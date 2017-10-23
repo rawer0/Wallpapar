@@ -117,11 +117,6 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     }
 
     @Override
-    public void showToast(String msg) {
-        ToastMaster.showToastMsg(msg);
-    }
-
-    @Override
     public void LoadDataSuccess(List<UrlModel> models) {
         swipeRefreshLayout.setRefreshing(false);
         if (models == null) {

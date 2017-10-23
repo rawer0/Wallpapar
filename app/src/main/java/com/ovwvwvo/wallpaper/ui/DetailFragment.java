@@ -2,13 +2,11 @@ package com.ovwvwvo.wallpaper.ui;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +17,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
-import com.ovwvwvo.jkit.utils.FileUtil;
 import com.ovwvwvo.jkit.weight.ToastMaster;
 import com.ovwvwvo.wallpaper.R;
 import com.ovwvwvo.wallpaper.model.UrlModel;
 import com.ovwvwvo.wallpaper.presenter.DetailPresenter;
-
-import java.io.File;
+import com.ovwvwvo.wallpaper.view.DetailView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +32,7 @@ import butterknife.OnLongClick;
  * Copyright ©2017 by rawer
  */
 
-public class DetailFragment extends Fragment implements DetailDialog.onItemClickListener {
+public class DetailFragment extends Fragment implements DetailDialog.onItemClickListener, DetailView {
     @BindView(R.id.src)
     PhotoView src_iv;
     @BindView(R.id.bottom_sheet)
@@ -66,7 +62,7 @@ public class DetailFragment extends Fragment implements DetailDialog.onItemClick
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = getArguments().getParcelable(MODEL);
-        presenter = new DetailPresenter();
+        presenter = new DetailPresenter(this);
     }
 
     @Override
@@ -125,21 +121,27 @@ public class DetailFragment extends Fragment implements DetailDialog.onItemClick
 
     @Override
     public void onSetLockScreenClick() {
-        ToastMaster.showToastMsg(R.string.menu_item_lockscreen);
+        presenter.setLockScreen(getContext(), bitmap);
     }
 
     @Override
     public void onDownLoadClick() {
-        String path = Environment.getExternalStoragePublicDirectory(
-            Environment.DIRECTORY_PICTURES).getPath() + File.separator
-            + System.currentTimeMillis() + ".png";
-        FileUtil.saveFile(bitmap.toString(), path);
-        Log.i("###", path);
-        ToastMaster.showToastMsg(R.string.menu_item_download);
+        presenter.download(getActivity(), bitmap);
     }
+
 
     @Override
     public void onShareClick() {
         ToastMaster.showToastMsg(R.string.menu_item_share);
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
     }
 }

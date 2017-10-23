@@ -14,7 +14,5 @@ public interface MainView {
 
     void hideProgress();
 
-    void showToast(String msg);
-
     void LoadDataSuccess(List<UrlModel> models);
 }
