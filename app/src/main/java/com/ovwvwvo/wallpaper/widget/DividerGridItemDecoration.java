@@ -55,7 +55,7 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        int itemPosition = parent.indexOfChild(view);
+        int itemPosition = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
         int spanCount = getSpanCount(parent);
         int childCount = parent.getAdapter().getItemCount();
         int positionInRow = itemPosition % spanCount;
