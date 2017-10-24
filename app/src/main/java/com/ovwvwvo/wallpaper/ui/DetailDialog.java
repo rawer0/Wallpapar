@@ -53,13 +53,6 @@ public class DetailDialog extends BottomSheetDialogFragment {
         dismiss();
     }
 
-    @OnClick(R.id.set_lockScreen)
-    void setLockScreen() {
-        if (listener != null)
-            listener.onSetLockScreenClick();
-        dismiss();
-    }
-
     @OnClick(R.id.download)
     void download() {
         if (listener != null)
@@ -76,8 +69,6 @@ public class DetailDialog extends BottomSheetDialogFragment {
 
     interface onItemClickListener {
         void onSetWallpaperClick();
-
-        void onSetLockScreenClick();
 
         void onDownLoadClick();
 

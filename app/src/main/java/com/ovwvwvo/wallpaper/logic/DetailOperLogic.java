@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 import rx.Observable;
 import rx.schedulers.Schedulers;
@@ -31,22 +30,6 @@ public class DetailOperLogic {
             } catch (IOException e) {
                 e.printStackTrace();
                 subscriber.onError(e);
-            } finally {
-                subscriber.onCompleted();
-            }
-        }).observeOn(Schedulers.io());
-    }
-
-    public Observable<Object> setLockScreen(Context context, Bitmap bitmap) {
-        return Observable.create(subscriber -> {
-            try {
-                WallpaperManager mWallManager = WallpaperManager.getInstance(context);
-                Class clazz = mWallManager.getClass();
-                Method setWallPaperMethod = clazz.getMethod("setBitmapToLockWallpaper", Bitmap.class);
-                setWallPaperMethod.invoke(mWallManager, bitmap);
-            } catch (Exception e) {
-                subscriber.onError(e);
-                e.printStackTrace();
             } finally {
                 subscriber.onCompleted();
             }

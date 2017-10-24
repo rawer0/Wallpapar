@@ -12,11 +12,6 @@
         android:text="@string/menu_item_wallpaper"/>
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/set_lockScreen"
-        style="@style/Dialog_TextItem"
-        android:text="@string/menu_item_lockscreen"/>
-
-    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/download"
         style="@style/Dialog_TextItem"
         android:text="@string/menu_item_download"/>

@@ -77,30 +77,36 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def fileName = output.outputFile.name;
-            if (fileName != null && fileName.endsWith('.apk')) {
-                fileName = fileName.replace("app", getRootProject().name + "${variant.versionName}-${variant.versionCode}")
-                output.outputFile = new File(output.outputFile.parent, fileName)
-            }
-        }
-    }
+//    applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            def fileName = output.outputFile.name;
+//            if (fileName != null && fileName.endsWith('.apk')) {
+//                fileName = fileName.replace("app", getRootProject().name + "${variant.versionName}-${variant.versionCode}")
+//                output.outputFile = new File(output.outputFile.parent, fileName)
+//            }
+//        }
+//    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+
     foreignCompile 'com.google.firebase:firebase-core:11.0.2'
     foreignCompile 'com.google.firebase:firebase-database:11.0.2'
     inlandCompile 'cn.leancloud.android:avoscloud-sdk:v4.4.4'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+
     compile 'com.github.bumptech.glide:glide:4.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    compile 'com.github.chrisbanes:PhotoView:2.0.0'
+
     compile 'com.ovwvwvo:jkit:0.1.7'
     compile 'com.ovwvwvo:common:0.1.7'
+
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
 }

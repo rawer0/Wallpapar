@@ -1,5 +1,6 @@
 package com.ovwvwvo.wallpaper.ui;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,6 +40,8 @@ public class DetailFragment extends Fragment implements DetailDialog.onItemClick
     RelativeLayout bottomSheet_layout;
     @BindView(R.id.desc)
     AppCompatTextView desc_tv;
+
+    private ProgressDialog progressDialog;
 
     private BottomSheetBehavior behavior;
     private DetailDialog detailDialog;
@@ -120,11 +123,6 @@ public class DetailFragment extends Fragment implements DetailDialog.onItemClick
     }
 
     @Override
-    public void onSetLockScreenClick() {
-        presenter.setLockScreen(getContext(), bitmap);
-    }
-
-    @Override
     public void onDownLoadClick() {
         presenter.download(getActivity(), bitmap);
     }
@@ -137,11 +135,12 @@ public class DetailFragment extends Fragment implements DetailDialog.onItemClick
 
     @Override
     public void showProgress() {
-
+        progressDialog = ProgressDialog.show(getContext(), "", "请稍等...");
     }
 
     @Override
     public void hideProgress() {
-
+        if (progressDialog != null)
+            progressDialog.dismiss();
     }
 }

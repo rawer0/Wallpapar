@@ -37,7 +37,7 @@ public class DetailPresenter {
     public void setWallPaper(Context context, Bitmap bitmap) {
         new DetailOperLogic().setWallpaper(context, bitmap)
             .doOnSubscribe(() -> detailView.showProgress())
-            .doOnTerminate(() -> detailView.showProgress())
+            .doOnTerminate(() -> detailView.hideProgress())
             .doOnError(throwable -> ToastMaster.showToastMsg(R.string.set_wallpaper_failed))
             .doOnCompleted(() -> ToastMaster.showToastMsg(R.string.set_wallpaper_successed))
             .subscribe(new EmptyObserver<>());
@@ -49,17 +49,10 @@ public class DetailPresenter {
         context.startActivity(home);
     }
 
-    public void setLockScreen(Context context, Bitmap bitmap) {
-        logic.setLockScreen(context, bitmap)
-            .doOnSubscribe(() -> detailView.showProgress())
-            .doOnTerminate(() -> detailView.showProgress())
-            .doOnError(throwable -> ToastMaster.showToastMsg(R.string.set_lockscreen_failed))
-            .doOnCompleted(() -> ToastMaster.showToastMsg(R.string.set_lockscreen_successed))
-            .subscribe(new EmptyObserver<>());
-    }
-
     public void download(Activity activity, Bitmap bitmap) {
         logic.requestPermission(activity)
+            .doOnSubscribe(() -> detailView.showProgress())
+            .doOnTerminate(() -> detailView.hideProgress())
             .doOnNext(granted -> {
                 if (granted) {
                     String path = downloadPic(bitmap);
