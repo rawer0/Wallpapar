@@ -55,7 +55,8 @@ public class DetailPresenter {
             .doOnTerminate(() -> detailView.hideProgress())
             .doOnNext(granted -> {
                 if (granted) {
-                    String path = downloadPic(bitmap);
+                    String path = downloadPic(bitmap, Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES).getPath() + File.separator + System.currentTimeMillis() + ".png");
                     if (!TextUtils.isEmpty(path)) {
                         refreshPic(activity, path);
                     }
@@ -68,10 +69,7 @@ public class DetailPresenter {
             .subscribe(new EmptyObserver<>());
     }
 
-    private String downloadPic(Bitmap bitmap) {
-        String path = Environment.getExternalStoragePublicDirectory(
-            Environment.DIRECTORY_PICTURES).getPath() + File.separator
-            + System.currentTimeMillis() + ".png";
+    private String downloadPic(Bitmap bitmap, String path) {
         File file = new File(path);
         file.deleteOnExit();
         try {
@@ -96,5 +94,15 @@ public class DetailPresenter {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void share(Context context, Bitmap bitmap) {
+        File file = new File(context.getExternalCacheDir(), "share.png");
+        file.deleteOnExit();
+        downloadPic(bitmap, file.getPath());
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/png");
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+        context.startActivity(Intent.createChooser(intent, context.getString(R.string.menu_item_share)));
     }
 }

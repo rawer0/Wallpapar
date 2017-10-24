@@ -2,8 +2,10 @@ package com.ovwvwvo.wallpaper.ui;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
@@ -18,7 +20,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
-import com.ovwvwvo.jkit.weight.ToastMaster;
 import com.ovwvwvo.wallpaper.R;
 import com.ovwvwvo.wallpaper.model.UrlModel;
 import com.ovwvwvo.wallpaper.presenter.DetailPresenter;
@@ -128,9 +129,10 @@ public class DetailFragment extends Fragment implements DetailDialog.onItemClick
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onShareClick() {
-        ToastMaster.showToastMsg(R.string.menu_item_share);
+        presenter.share(getContext(), bitmap);
     }
 
     @Override
