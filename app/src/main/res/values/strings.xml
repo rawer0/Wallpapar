@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">壁纸</string>
     <string name="action_settings">设置</string>
+    <string name="action_layout">排列</string>
 
     <string name="menu_item_wallpaper">设为壁纸</string>
     <string name="menu_item_download">下载高清原图</string>
@@ -9,7 +10,7 @@
     <string name="set_wallpaper_successed">设置壁纸成功</string>
     <string name="set_wallpaper_failed">设置壁纸失败</string>
 
-    <string name="load_more">加载更多...</string>
+    <string name="load_more">加载更多…</string>
     <string name="no_more">没有更多数据了^-^</string>
 
     <string name="permissions">请授予应用读写手机存储的权限</string>

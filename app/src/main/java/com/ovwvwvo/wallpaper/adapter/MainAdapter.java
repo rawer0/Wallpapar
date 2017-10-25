@@ -29,12 +29,20 @@ public class MainAdapter extends AutoLoadMoreAdapter<RecyclerView.ViewHolder> {
     private ArrayList<UrlModel> models = new ArrayList<>();
     private Activity activity;
 
+    private LayoutInflater inflater;
+    private int spancount = 2;
+
     public enum ItemType {
-        NORMAL, LOAD_MORE
+        VERTICAL, HORIZONTAL, LOAD_MORE
     }
 
     public MainAdapter(Activity activity) {
         this.activity = activity;
+        inflater = LayoutInflater.from(activity);
+    }
+
+    public void setSpancount(int spancount) {
+        this.spancount = spancount;
     }
 
     public void setModels(List<UrlModel> models) {
@@ -62,9 +70,10 @@ public class MainAdapter extends AutoLoadMoreAdapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == ItemType.NORMAL.ordinal()) {
-            return new MViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_detail, parent, false));
+        if (viewType == ItemType.VERTICAL.ordinal()) {
+            return new MViewHolder(inflater.inflate(R.layout.item_detail, parent, false));
+        } else if (viewType == ItemType.HORIZONTAL.ordinal()) {
+            return new MViewHolder(inflater.inflate(R.layout.item_detail_reversal, parent, false));
         } else {
             return new LoadMoreViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_loadmore, parent, false));
@@ -76,7 +85,7 @@ public class MainAdapter extends AutoLoadMoreAdapter<RecyclerView.ViewHolder> {
         super.onBindViewHolder(holder, position);
         if (holder instanceof MViewHolder)
             Glide.with(activity)
-                .load(models.get(position).getUrl() + "-half")
+                .load(models.get(position).getUrl() + (spancount == 2 ? "-half" : "-rectangle"))
                 .thumbnail(0.4f)
                 .into(((MViewHolder) holder).imageView);
         else {
@@ -91,7 +100,11 @@ public class MainAdapter extends AutoLoadMoreAdapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return position >= models.size() ? ItemType.LOAD_MORE.ordinal() : ItemType.NORMAL.ordinal();
+        if (position >= models.size())
+            return ItemType.LOAD_MORE.ordinal();
+        else if (spancount == 2) {
+            return ItemType.VERTICAL.ordinal();
+        } else return ItemType.HORIZONTAL.ordinal();
     }
 
     class MViewHolder extends RecyclerView.ViewHolder {

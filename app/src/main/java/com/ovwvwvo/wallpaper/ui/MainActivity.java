@@ -1,11 +1,11 @@
 package com.ovwvwvo.wallpaper.ui;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -39,6 +39,13 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
+    private DividerGridItemDecoration gridIecoration;
+    private DividerItemDecoration listDecoration;
+
+    private final static int LIST_LAYOUT = 1;
+    private final static int GRID_LAYOUT = 2;
+    private int currentLayout = GRID_LAYOUT;
+
     private MainAdapter adapter;
     private LoadDataPresenterImpl presenter;
 
@@ -46,27 +53,35 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initStatusBar();
         ButterKnife.bind(this);
-        presenter = new LoadDataPresenterImpl(this);
         initView();
 
+        presenter = new LoadDataPresenterImpl(this);
         presenter.loadData(0);
     }
 
     private void initView() {
+        initStatusBar();
         setSupportActionBar(toolbar);
+
+        listDecoration = new DividerItemDecoration(this, LinearLayout.VERTICAL);
+        gridIecoration = new DividerGridItemDecoration(this);
+        recyclerView.addItemDecoration(gridIecoration);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                boolean bo = MainAdapter.ItemType.LOAD_MORE.ordinal() == adapter.getItemViewType(position);
-                return bo ? 2 : 1;
+                if (currentLayout == GRID_LAYOUT) {
+                    boolean bo = MainAdapter.ItemType.LOAD_MORE.ordinal() == adapter.getItemViewType(position);
+                    return bo ? 2 : 1;
+                } else if (currentLayout == LIST_LAYOUT) {
+                    return 2;
+                } else return 0;
             }
         });
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addItemDecoration(new DividerGridItemDecoration(this,
-            getResources().getDimensionPixelSize(R.dimen.space_small_2), Color.WHITE));
+
         adapter = new MainAdapter(this);
         adapter.setLoadMoreListener(this);
         recyclerView.setAdapter(adapter);
@@ -74,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 
-    public void initStatusBar() {
+    private void initStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -101,9 +116,29 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            return true;
+            //setting
+        } else if (id == R.id.action_layout) {
+            if (currentLayout == LIST_LAYOUT) {
+                adapter.setSpancount(currentLayout = GRID_LAYOUT);
+                item.setIcon(R.drawable.ic_list_menu);
+            } else if (currentLayout == GRID_LAYOUT) {
+                adapter.setSpancount(currentLayout = LIST_LAYOUT);
+                item.setIcon(R.drawable.ic_grid_menu);
+            }
+            swapSpanSize();
+            adapter.notifyDataSetChanged();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void swapSpanSize() {
+        recyclerView.removeItemDecoration(listDecoration);
+        recyclerView.removeItemDecoration(gridIecoration);
+        if (currentLayout == GRID_LAYOUT) {
+            recyclerView.addItemDecoration(gridIecoration);
+        } else if (currentLayout == LIST_LAYOUT) {
+            recyclerView.addItemDecoration(listDecoration);
+        }
     }
 
     @Override
