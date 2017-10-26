@@ -10,7 +10,9 @@ def gitVersionCode() {
 def gitVersionName() {
     def cmd = 'git describe --tags'
     def versionName = cmd.execute().text.trim()
-
+    if (!versionName) {
+        versionName = "git rev-parse --short HEAD".execute().text.trim()
+    }
     def pattern = "-(\\d+)-g"
     def matcher = versionName =~ pattern
 
