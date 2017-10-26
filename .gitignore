@@ -56,3 +56,4 @@ freeline_project_description.json
 
 # build cache
 buildCahce/
+/buildCahce.lock
