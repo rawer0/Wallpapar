@@ -11,5 +11,9 @@
     <string name="set_wallpaper_failed">Set Wallpaper failed</string>
     <string name="set_wallpaper_successed">Set Wallpaper successfully</string>
 
+    <string name="load_more">load more…</string>
+    <string name="no_more">no more</string>
+
     <string name="about">About</string>
+
 </resources>

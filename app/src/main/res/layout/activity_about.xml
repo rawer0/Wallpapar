@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:fitsSystemWindows="true"
-    tools:context=".ui.AboutActivity">
+    tools:context=".ui.AboutActivity"
+    tools:ignore="RtlHardcoded">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -26,6 +27,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <TextView
+        android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/appBarLayout"
@@ -36,4 +38,68 @@
         android:gravity="center"
         android:text="@string/app_name"
         android:textAppearance="@style/Text_Large_Black"/>
+
+    <android.support.v7.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:layout_below="@+id/icon"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/space_large_5"
+        android:background="@color/gray_500"
+        android:padding="1dp"
+        app:columnCount="2"
+        app:rowCount="3">
+
+        <TextView
+            style="@style/Item_GridLayout"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="1dp"
+            android:text="@string/author"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"/>
+
+        <TextView
+            style="@style/Item_GridLayout"
+            android:layout_marginBottom="1dp"
+            android:text="@string/rawer"
+            android:textColor="@color/gray_900"
+            android:textStyle="bold"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"/>
+
+        <TextView
+            style="@style/Item_GridLayout"
+            android:layout_marginRight="1dp"
+            android:text="@string/wechat_number"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"/>
+
+        <TextView
+            style="@style/Item_GridLayout"
+            android:text="@string/rawer0"
+            android:textColor="@color/gray_900"
+            android:textStyle="bold"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"/>
+
+        <TextView
+            style="@style/Item_GridLayout"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="1dp"
+            android:text="@string/version"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"/>
+
+        <TextView
+            android:id="@+id/version"
+            style="@style/Item_GridLayout"
+            android:layout_marginTop="1dp"
+            android:textColor="@color/gray_900"
+            android:textStyle="bold"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"/>
+
+    </android.support.v7.widget.GridLayout>
+
 </RelativeLayout>

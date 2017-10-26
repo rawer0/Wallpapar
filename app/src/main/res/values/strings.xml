@@ -21,4 +21,9 @@
     <string name="download_failed">下载图片失败</string>
 
     <string name="about">关于</string>
+    <string name="version">版本号</string>
+    <string name="wechat_number">微信号</string>
+    <string name="author">作者</string>
+    <string name="rawer" translatable="false">rawer</string>
+    <string name="rawer0" translatable="false">rawer0</string>
 </resources>

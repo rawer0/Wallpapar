@@ -52,7 +52,6 @@ public class SplashActivity extends BaseActivity {
         });
     }
 
-
     private void next() {
         startActivity(new Intent(SplashActivity.this, MainActivity.class));
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

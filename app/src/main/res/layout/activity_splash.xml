@@ -19,9 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:gravity="center"
         android:text="@string/copyright"
         android:textColor="@color/gray_400"
-        android:textSize="@dimen/space_small_1"/>
+        android:textSize="@dimen/text_size_small_2"/>
 </RelativeLayout>

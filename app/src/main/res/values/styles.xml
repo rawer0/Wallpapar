@@ -19,4 +19,11 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
+
+    <style name="Item_GridLayout">
+        <item name="android:textSize">@dimen/text_size_small_1</item>
+        <item name="android:textColor">@color/gray_600</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

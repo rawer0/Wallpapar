@@ -89,6 +89,8 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
+    implementation 'com.android.support:gridlayout-v7:25.3.1'
+
     foreignImplementation 'com.google.firebase:firebase-core:11.4.2'
     foreignImplementation 'com.google.firebase:firebase-database:11.4.2'
     inlandImplementation 'cn.leancloud.android:avoscloud-sdk:v4.4.4'
