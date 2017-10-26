@@ -1,5 +1,6 @@
 package com.ovwvwvo.wallpaper.ui;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -115,8 +116,8 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            //setting
+        if (id == R.id.action_about) {
+            startActivity(new Intent(this, AboutActivity.class));
         } else if (id == R.id.action_layout) {
             if (currentLayout == LIST_LAYOUT) {
                 adapter.setSpancount(currentLayout = GRID_LAYOUT);

@@ -71,9 +71,9 @@ public class MainAdapter extends AutoLoadMoreAdapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ItemType.VERTICAL.ordinal()) {
-            return new MViewHolder(inflater.inflate(R.layout.item_detail, parent, false));
+            return new MViewHolder(inflater.inflate(R.layout.item_detail_grid, parent, false));
         } else if (viewType == ItemType.HORIZONTAL.ordinal()) {
-            return new MViewHolder(inflater.inflate(R.layout.item_detail_reversal, parent, false));
+            return new MViewHolder(inflater.inflate(R.layout.item_detail_list, parent, false));
         } else {
             return new LoadMoreViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_loadmore, parent, false));

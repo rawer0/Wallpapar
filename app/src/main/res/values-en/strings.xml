@@ -10,4 +10,6 @@
 
     <string name="set_wallpaper_failed">Set Wallpaper failed</string>
     <string name="set_wallpaper_successed">Set Wallpaper successfully</string>
+
+    <string name="about">About</string>
 </resources>
