@@ -25,7 +25,7 @@
 #-renamesourcefileattribute SourceFile
 
 ### 忽略警告
-#-ignorewarning
+-ignorewarning
 
 #Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -45,10 +45,3 @@
 # Realtime Database
 # Add this global rule
 -keepattributes Signature
-
-# This rule will properly ProGuard all the model classes in
-# the package com.yourcompany.models. Modify to fit the structure
-# of your app.
--keepclassmembers class com.yourcompany.models.** {
-  *;
-}
