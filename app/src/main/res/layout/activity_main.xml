@@ -32,6 +32,8 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
             android:paddingTop="@dimen/space_small_2"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>

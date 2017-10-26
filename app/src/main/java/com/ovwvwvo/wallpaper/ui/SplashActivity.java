@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ovwvwvo.wallpaper.R;
@@ -19,8 +18,8 @@ import butterknife.ButterKnife;
 
 public class SplashActivity extends BaseActivity {
 
-    @BindView(R.id.iv)
-    ImageView imageView;
+    @BindView(R.id.icon)
+    TextView icon;
     @BindView(R.id.copyright)
     TextView copyright_tv;
 
@@ -33,7 +32,7 @@ public class SplashActivity extends BaseActivity {
 
         Animation anim = AnimationUtils.loadAnimation(this, android.support.design.R.anim.abc_fade_in);
         anim.setDuration(1024);
-        imageView.startAnimation(anim);
+        icon.startAnimation(anim);
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

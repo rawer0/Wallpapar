@@ -6,13 +6,19 @@
                 android:background="@android:color/white"
                 tools:context=".ui.SplashActivity">
 
-    <ImageView
-        android:id="@+id/iv"
+    <TextView
+        android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/appBarLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="128dp"
-        android:src="@drawable/ic_splash"/>
+        android:drawablePadding="@dimen/space_normal"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textAppearance="@style/Text_Large_Black"/>
+
 
     <TextView
         android:id="@+id/copyright"
