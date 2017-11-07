@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import com.ovwvwvo.jkit.utils.AppUtil;
+import com.ovwvwvo.common.utils.AppUtil;
 import com.ovwvwvo.wallpaper.R;
 
 import butterknife.BindView;
@@ -27,6 +27,7 @@ public class AboutActivity extends BaseActivity {
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
         versionTv.setText(AppUtil.getVersionName(this));
     }

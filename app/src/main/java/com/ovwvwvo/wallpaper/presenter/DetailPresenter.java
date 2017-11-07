@@ -9,10 +9,10 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
-import com.ovwvwvo.jkit.rx.EmptyObserver;
-import com.ovwvwvo.jkit.weight.ToastMaster;
+import com.ovwvwvo.common.utils.ToastMaster;
 import com.ovwvwvo.wallpaper.R;
 import com.ovwvwvo.wallpaper.logic.DetailOperLogic;
+import com.ovwvwvo.wallpaper.rx.EmptyObserver;
 import com.ovwvwvo.wallpaper.view.DetailView;
 
 import java.io.File;

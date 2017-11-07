@@ -74,11 +74,12 @@ public class DetailFragment extends Fragment implements DetailDialog.onItemClick
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, rootView);
-        src_iv.setScaleType(ImageView.ScaleType.FIT_XY);
+        src_iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         if (TextUtils.isEmpty(model.getDesc())) {
             bottomSheet_layout.setVisibility(View.GONE);
         } else {
+            desc_tv.setText(model.getDesc());
             behavior = BottomSheetBehavior.from(bottomSheet_layout);
             behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }

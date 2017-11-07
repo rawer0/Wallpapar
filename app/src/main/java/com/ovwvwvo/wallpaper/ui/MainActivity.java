@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.ovwvwvo.jkit.weight.ToastMaster;
 import com.ovwvwvo.wallpaper.R;
 import com.ovwvwvo.wallpaper.adapter.AutoLoadMoreAdapter;
 import com.ovwvwvo.wallpaper.adapter.MainAdapter;
@@ -58,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
         initView();
 
         presenter = new LoadDataPresenterImpl(this);
-        presenter.loadData(0);
+        showProgress();
+        presenter.loadData(System.currentTimeMillis());
     }
 
     private void initView() {
@@ -172,7 +172,8 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     @Override
     public void onRefresh() {
         adapter.setMoreDataAvailable(true);
-        presenter.loadData(0);
+        showProgress();
+        presenter.loadData(System.currentTimeMillis());
     }
 
     @Override

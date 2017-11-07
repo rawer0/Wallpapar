@@ -23,6 +23,6 @@
         android:layout_marginLeft="@dimen/space_small_2"
         android:layout_toRightOf="@id/listBottomLoadingMore"
         android:text="@string/load_more"
-        android:textAppearance="@style/TextAppearance.ST.LightGrey"/>
+        android:textAppearance="@android:style/TextAppearance.Small" />
 
 </RelativeLayout>

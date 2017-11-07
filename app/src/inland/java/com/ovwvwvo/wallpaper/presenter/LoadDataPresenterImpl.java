@@ -4,7 +4,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
-import com.ovwvwvo.jkit.weight.ToastMaster;
+import com.ovwvwvo.common.utils.ToastMaster;
 import com.ovwvwvo.wallpaper.model.UrlModel;
 import com.ovwvwvo.wallpaper.view.MainView;
 
@@ -25,20 +25,9 @@ public class LoadDataPresenterImpl implements LoadDataPresenter {
     }
 
     @Override
-    public void loadData(long page) {
-        if (page == 0)
-            mainView.showProgress();
-        readData(page);
-    }
-
-    private void writeData() {
-        UrlModel todoFolder = new UrlModel();// 构建对象
-        todoFolder.saveInBackground();
-    }
-
-    private void readData(long id) {
+    public void loadData(long id) {
         AVQuery<UrlModel> avQuery = AVObject.getQuery(UrlModel.class);
-        avQuery.whereGreaterThan("id", id);
+        avQuery.whereLessThan("id", id);
         avQuery.limit(10);
         avQuery.findInBackground(new FindCallback<UrlModel>() {
             @Override
@@ -51,5 +40,10 @@ public class LoadDataPresenterImpl implements LoadDataPresenter {
                 }
             }
         });
+    }
+
+    private void writeData() {
+        UrlModel todoFolder = new UrlModel();// 构建对象
+        todoFolder.saveInBackground();
     }
 }
