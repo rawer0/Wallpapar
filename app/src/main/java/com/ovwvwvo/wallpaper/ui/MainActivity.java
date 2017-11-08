@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.ovwvwvo.common.utils.ToastMaster;
 import com.ovwvwvo.wallpaper.R;
 import com.ovwvwvo.wallpaper.adapter.AutoLoadMoreAdapter;
 import com.ovwvwvo.wallpaper.adapter.MainAdapter;

@@ -6,12 +6,12 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.IOException;
 
-import rx.Observable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Copyright ©2017 by rawer
@@ -31,7 +31,7 @@ public class DetailOperLogic {
                 e.printStackTrace();
                 subscriber.onError(e);
             } finally {
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         }).observeOn(Schedulers.io());
     }

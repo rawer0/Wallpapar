@@ -36,11 +36,11 @@ public class DetailPresenter {
 
     public void setWallPaper(Context context, Bitmap bitmap) {
         new DetailOperLogic().setWallpaper(context, bitmap)
-            .doOnSubscribe(() -> detailView.showProgress())
-            .doOnTerminate(() -> detailView.hideProgress())
-            .doOnError(throwable -> ToastMaster.showToastMsg(R.string.set_wallpaper_failed))
-            .doOnCompleted(() -> ToastMaster.showToastMsg(R.string.set_wallpaper_successed))
-            .subscribe(new EmptyObserver<>());
+                .doOnSubscribe((c) -> detailView.showProgress())
+                .doOnTerminate(() -> detailView.hideProgress())
+                .doOnError(throwable -> ToastMaster.showToastMsg(R.string.set_wallpaper_failed))
+                .doOnComplete(() -> ToastMaster.showToastMsg(R.string.set_wallpaper_successed))
+                .subscribe(new EmptyObserver<>());
     }
 
     private void gotoHome(Context context) {
@@ -51,22 +51,22 @@ public class DetailPresenter {
 
     public void download(Activity activity, Bitmap bitmap) {
         logic.requestPermission(activity)
-            .doOnSubscribe(() -> detailView.showProgress())
-            .doOnTerminate(() -> detailView.hideProgress())
-            .doOnNext(granted -> {
-                if (granted) {
-                    String path = downloadPic(bitmap, Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_PICTURES).getPath() + File.separator + System.currentTimeMillis() + ".png");
-                    if (!TextUtils.isEmpty(path)) {
-                        refreshPic(activity, path);
+                .doOnSubscribe((c) -> detailView.showProgress())
+                .doOnTerminate(() -> detailView.hideProgress())
+                .doOnNext(granted -> {
+                    if (granted) {
+                        String path = downloadPic(bitmap, Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_PICTURES).getPath() + File.separator + System.currentTimeMillis() + ".png");
+                        if (!TextUtils.isEmpty(path)) {
+                            refreshPic(activity, path);
+                        }
+                        ToastMaster.showToastMsg(R.string.download_successed);
+                    } else {
+                        ToastMaster.showToastMsg(R.string.permissions);
                     }
-                    ToastMaster.showToastMsg(R.string.download_successed);
-                } else {
-                    ToastMaster.showToastMsg(R.string.permissions);
-                }
-            })
-            .doOnError(throwable -> ToastMaster.showToastMsg(R.string.download_failed))
-            .subscribe(new EmptyObserver<>());
+                })
+                .doOnError(throwable -> ToastMaster.showToastMsg(R.string.download_failed))
+                .subscribe(new EmptyObserver<>());
     }
 
     private String downloadPic(Bitmap bitmap, String path) {

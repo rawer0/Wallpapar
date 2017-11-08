@@ -2,8 +2,7 @@ package com.ovwvwvo.wallpaper;
 
 import android.app.Application;
 
-import com.ovwvwvo.jkit.AppWrapper;
-import com.ovwvwvo.jkit.log.LogUtil;
+import com.ovwvwvo.common.AppWrapper;
 import com.ovwvwvo.wallpaper.agent.BootstrapImpl;
 
 /**
@@ -17,7 +16,6 @@ public class MainApp extends Application {
         super.onCreate();
 
         AppWrapper.getInstance().setAppContext(this);
-        LogUtil.setEnable(true);
         new BootstrapImpl().initBaas(this);
     }
 }

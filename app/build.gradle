@@ -93,7 +93,7 @@ dependencies {
     foreignImplementation 'com.google.firebase:firebase-database:11.6.0'
     inlandImplementation 'cn.leancloud.android:avoscloud-sdk:v4.4.4'
 
-    implementation 'com.ovwvwvo:common:0.1.10'
+    implementation 'com.ovwvwvo:common:0.1.11'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support:gridlayout-v7:26.1.0'
 
@@ -105,5 +105,5 @@ dependencies {
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
-    implementation 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
 }
